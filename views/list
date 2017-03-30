@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Weather</title>
+</head>
+<body>
+
+<table border="0" width="100%">
+    <tr>
+        <td colspan="2"></td>
+        <td> <b>Weather</b> </td>
+    </tr>
+
+    {% for key, detail in temperature %}
+        <tr>
+            <td>
+                {{temperature[key].location.city}}
+            </td>
+            <td>
+                <table>
+                    <tr>
+                        <td>
+                            <img src="{{temperature[key].img.gif}}"/>
+                        </td>
+                        <td>
+                            {{ temperature[key].description }}
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td>{{temperature[key].temp}}</td>
+        </tr>
+    {% endfor %}
+
+</table>
+</body>
+</html>

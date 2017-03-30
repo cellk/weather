@@ -1,0 +1,11 @@
+{
+    "require": {
+        "tentwofour/twig": "^1.0",
+        "guzzlehttp/guzzle": "5.x"
+    },
+    "autoload": {
+        "psr-4": {
+            "Lib\\": "Lib/"
+        }
+    }
+}

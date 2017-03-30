@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Weather forecast in {{ city }}</title>
+</head>
+<body>
+
+{% for key, detail in temperature %}
+    <h2><b> {{ temperature[key].location.city }}, {{ temperature[key].location.region }}</b></h2>
+    <table border="0" width="100%">
+        <tr>
+            <td colspan="2"></td>
+            <td><b>High</b></td>
+            <td><b>Low</b></td>
+        </tr>
+        {% for key2, detail2 in temperature[key].location.forecast %}
+            <tr>
+                <td>
+                    {{ temperature[key].location.forecast[key2].date }}
+                </td>
+                <td>
+                    <table>
+                        <tr>
+                            <td>
+                                <img src="{{ temperature[key].location.forecast[key2].img.gif }}"/>
+                            </td>
+                            <td>
+                                {{ temperature[key].location.forecast[key2].description }}
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td>{{ temperature[key].location.forecast[key2].high }}</td>
+                <td>{{ temperature[key].location.forecast[key2].low }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endfor %}
+</body>
+</html>
