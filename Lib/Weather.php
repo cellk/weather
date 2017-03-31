@@ -9,6 +9,7 @@
 
 namespace Cellk\Yahoo;
 
+use Doctrine\Instantiator\Exception\InvalidArgumentException;
 use GuzzleHttp\Client as ClientHttp;
 use GuzzleHttp\Exception\RequestException;
 include_once("YahooWeatherInterface.php");
@@ -52,9 +53,8 @@ class Weather implements YahooWeatherInterface
     protected $yahooQuery;
 
 
-    public function __construct($json)
+    public function __construct()
     {
-        $this->setCities($json);
 
         $loader = new \Twig_Loader_Filesystem('./views/');
         $this->twig = new \Twig_Environment($loader, array(
@@ -75,7 +75,7 @@ class Weather implements YahooWeatherInterface
     /**
      * {@inheritdoc}
      */
-    public function callApiCityName($city = null, $region = null)
+    public function apiWeatherCity($city = null, $region = null)
     {
         if ($city === null && $this->city === null) {
             throw new \Exception('Please provide a city\'s name', 400);
@@ -85,13 +85,13 @@ class Weather implements YahooWeatherInterface
         }
 
         $this->yahooQuery = self::URL_BASE . urlencode(sprintf(self::CITY_NAME_QUERY, $this->city, $region));
-        return $this->callApi();
+        return $this->apiWeather();
     }
 
     /**
      * {@inheritdoc}
      */
-    public function callApi($yahooQuery = null)
+    public function apiWeather($yahooQuery = null)
     {
         if ($yahooQuery === null && empty($this->yahooQuery)) {
             throw new \Exception('Please provide a YQL request', 400);
@@ -115,7 +115,7 @@ class Weather implements YahooWeatherInterface
             }
 
         } catch (RequestException $e) {
-            throw new \Exception("Error happened, please check your request url whether it's correct.", 400);
+            throw new RequestException("Error happened, please check your request url whether it's correct.", 400);
         }
 
         return $this->response;
@@ -128,15 +128,16 @@ class Weather implements YahooWeatherInterface
      *
      * @return array | false
      */
-    public function weatherToday()
+    public function weatherToday($json)
     {
+        $this->setCities($json);
         $this->nbDays = 1;
 
         $list = $this->cities;
         if (!empty($list)) {
             $nbCities = count($list);
             for ($i = 0; $i < $nbCities; $i++) {
-                $this->callApiCityName($list[$i]->city, $list[$i]->region);
+                $this->apiWeatherCity($list[$i]->city, $list[$i]->region);
                 $data = $this->getCommonData($this->response);
                 $data = array_merge($data, array(
                     'location' => array(
@@ -159,8 +160,9 @@ class Weather implements YahooWeatherInterface
      * @param int $nbDays How many days forecast
      * @return array | false
      */
-    public function cityForecast($nbDays = 2)
+    public function cityForecast($nbDays = 2, $json)
     {
+        $this->setCities($json);
         $this->nbDays = (int)$nbDays;
         $list = $this->cities;
 
@@ -173,7 +175,7 @@ class Weather implements YahooWeatherInterface
 
             //Loop for every city
             for ($i = 0; $i < $nbCities; $i++) {
-                $this->callApiCityName($list[$i]->city, $list[$i]->region);
+                $this->apiWeatherCity($list[$i]->city, $list[$i]->region);
                 $this->citiesWeather[$i] = array(
                     'location' => array(
                         'city'=> $list[$i]->city,
@@ -207,11 +209,17 @@ class Weather implements YahooWeatherInterface
     */
     private function setCities($string)
     {
-        if (is_string($string) && (json_last_error() === JSON_ERROR_NONE)) {
-            $this->cities = @json_decode($string);
-        } else {
-            throw new \Exception('The Json format is not correct');
+        try{
+            $cities = @json_decode($string);
+            if (is_string($string) && (json_last_error() === JSON_ERROR_NONE)) {
+                $this->cities = @$cities;
+            }else{
+                throw new \InvalidArgumentException('The Json format is not correct ');
+            }
+        }catch (\InvalidArgumentException $e){
+            echo $e->getMessage();
         }
+
     }
 
 

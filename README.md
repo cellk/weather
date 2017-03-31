@@ -13,10 +13,10 @@ $strJson = '[{"city":"Vancouver","region":"BC"},{"city":"Honolulu","region":"HI"
 
 /* 
  * weatherToday : Return today's temperature for each city
- * cityForecast(5) : Return 5 days forcast for each city
+ * cityForecast(5, $strJson) : Return 5 days forcast for each city
  */
-$weather = WeatherFactory::getWeather($strJson);
-$data = $weather->weatherToday();
+$weather = WeatherFactory::getWeather();
+$data = $weather->weatherToday($strJson);
 
 
 // Rendering with twig

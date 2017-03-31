@@ -3,9 +3,12 @@
         "tentwofour/twig": "^1.0",
         "guzzlehttp/guzzle": "5.x"
     },
+    "require-dev": {
+        "phpunit/phpunit": "5.5.*"
+    },
     "autoload": {
-        "psr-4": {
-            "Lib\\": "Lib/"
+        "psr-0": {
+            "UnitTestFiles": ""
         }
     }
 }

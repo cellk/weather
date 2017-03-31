@@ -11,8 +11,8 @@ use Cellk\Yahoo\Weather;
 
 class WeatherFactory
 {
-    public static function getWeather($Json){
-        return new Weather($Json);
+    public static function getWeather(){
+        return new Weather();
     }
 
 }

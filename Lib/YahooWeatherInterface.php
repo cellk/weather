@@ -21,7 +21,7 @@ interface YahooWeatherInterface
      *
      * @throws \Exception
      */
-    public function callApiCityName($name = null, $region = null);
+    public function apiWeatherCity($name = null, $region = null);
 
     /**
      * Method to call Yahoo Api.
@@ -32,5 +32,5 @@ interface YahooWeatherInterface
      *
      * @throws \Exception
      */
-    public function callApi($yahooQuery = null);
+    public function apiWeather($yahooQuery = null);
 }

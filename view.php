@@ -12,6 +12,6 @@ require_once "Lib/WeatherFactory.php";
 
 $strJson = '[{"city":"Vancouver","region":"BC"},{"city":"Honolulu","region":"HI"},{"city":"San Diego","region":"CA"},{"city":"Havana","region":"CH"}]';
 
-$weather = WeatherFactory::getWeather($strJson);
-$data = $weather->cityForecast(5);
+$weather = WeatherFactory::getWeather();
+$data = $weather->cityForecast(5, $strJson);
 $weather->render('view', array('temperature' => $data));
