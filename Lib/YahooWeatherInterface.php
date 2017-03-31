@@ -12,7 +12,6 @@ interface YahooWeatherInterface
 {
 
     /**
-     * Method to call Yahoo Api with city's name.
      *
      * @param string $name which correspond to the city's name
      * @param string $region which correspond to city's region
@@ -24,13 +23,8 @@ interface YahooWeatherInterface
     public function apiWeatherCity($name = null, $region = null);
 
     /**
-     * Method to call Yahoo Api.
      *
-     * @param string $yql the request to execute
-     *
-     * @return string representation of api response
-     *
-     * @throws \Exception
+     * @param string $yahooQuery
      */
     public function apiWeather($yahooQuery = null);
 }
