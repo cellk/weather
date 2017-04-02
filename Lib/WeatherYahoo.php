@@ -7,14 +7,13 @@
  * Time: 11:23 PM
  */
 
-namespace Cellk\Yahoo;
+namespace Cellk\Weather;
 
-use Doctrine\Instantiator\Exception\InvalidArgumentException;
 use GuzzleHttp\Client as ClientHttp;
 use GuzzleHttp\Exception\RequestException;
-include_once("YahooWeatherInterface.php");
+include_once("WeatherInterface.php");
 
-class Weather implements YahooWeatherInterface
+class WeatherYahoo implements WeatherInterface
 {
     /*
      * Temperature in Celsius

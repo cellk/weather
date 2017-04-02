@@ -6,9 +6,9 @@
  * Time: 10:53 AM
  */
 
-namespace Cellk\Yahoo;
+namespace Cellk\Weather;
 
-interface YahooWeatherInterface
+interface WeatherInterface
 {
 
     /**
@@ -26,5 +26,5 @@ interface YahooWeatherInterface
      *
      * @param string $yahooQuery
      */
-    public function apiWeather($yahooQuery = null);
+    public function apiWeather($query = null);
 }
