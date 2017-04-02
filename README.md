@@ -34,11 +34,6 @@ require_once 'Lib/WeatherFactory.php';
  */
 $weather = WeatherFactory::apixuWeather();
 $data = $weather->cityForecast('API_KEY', 'Vancouver', 8, 15);
-
-
-// Rendering with twig
-$view = 'list';
-$weather->render($view, array('temperature' => $data));
 ```
 
 ## Installation
