@@ -24,7 +24,7 @@ interface WeatherInterface
 
     /**
      *
-     * @param string $yahooQuery
+     * @param string $query
      */
     public function apiWeather($query = null);
 }

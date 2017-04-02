@@ -1,8 +1,8 @@
 ## Synopsis
 
-A very simple web application that utilizes the Yahoo Weather API to construct a list view of cities and their weather forecast information
+A very simple web application that utilizes Multiple Weather APIs to construct a list view of cities and their weather forecast information
 
-## Example
+## Example - Using Yahoo API
 
 ```php
 require_once 'vendor/autoload.php';
@@ -13,10 +13,27 @@ $strJson = '[{"city":"Vancouver","region":"BC"},{"city":"Honolulu","region":"HI"
 
 /* 
  * weatherToday : Return today's temperature for each city
- * cityForecast(5, $strJson) : Return 5 days forcast for each city
+ * cityForecast(5, $strJson) : Return 5 days forecast for each city
  */
 $weather = WeatherFactory::yahooWeather();
 $data = $weather->weatherToday($strJson);
+
+
+// Rendering with twig
+$view = 'list';
+$weather->render($view, array('temperature' => $data));
+```
+## Example - Using Apixu API
+```php
+require_once 'vendor/autoload.php';
+require_once 'Lib/WeatherFactory.php';
+
+/* 
+ * cityForecast : Return Vancouver today's forecast from 8am to 3pm
+ * weatherToday('API_KEY', 'Vancouver') : Return today's weather in Vancouver
+ */
+$weather = WeatherFactory::apixuWeather();
+$data = $weather->cityForecast('API_KEY', 'Vancouver', 8, 15);
 
 
 // Rendering with twig

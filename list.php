@@ -29,3 +29,7 @@ $strJson = '[{"city":"Vancouver","region":"BC"},{"city":"Honolulu","region":"HI"
 $weather = WeatherFactory::yahooWeather();
 $data = $weather->weatherToday($strJson);
 $weather->render('list', array('temperature' => $data));
+
+/*$weather2 = WeatherFactory::apixuWeather();
+$data2 = $weather2->weatherToday("99a975a5ac354cf995202553170204", "Vancouver");*/
+
