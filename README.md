@@ -15,7 +15,7 @@ $strJson = '[{"city":"Vancouver","region":"BC"},{"city":"Honolulu","region":"HI"
  * weatherToday : Return today's temperature for each city
  * cityForecast(5, $strJson) : Return 5 days forcast for each city
  */
-$weather = WeatherFactory::getWeather();
+$weather = WeatherFactory::yahooWeather();
 $data = $weather->weatherToday($strJson);
 
 
