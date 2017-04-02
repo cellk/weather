@@ -55,5 +55,7 @@ Twig : template engine for PHP
 
 Guzzle : PHP HTTP client
 
-Weather API : Yahoo
+Weather API : 
+- Yahoo
+- apixu.com
 
